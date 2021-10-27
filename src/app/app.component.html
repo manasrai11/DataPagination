@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Angular Pagination</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <button (click)="fetchData()" class="btn btn-danger mt-5">
+        get users
+      </button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Avatar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let data of retreive_data
+                | paginate
+                  : {
+                      itemsPerPage: 6,
+                      currentPage: page,
+                      totalItems: totalRecords
+                    }
+            "
+          >
+            <td>{{ data.id }}</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.first_name }}</td>
+            <td>{{ data.last_name }}</td>
+
+            <td>
+              <img src="{{ data.avatar }}" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <pagination-controls
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+  </body>
+</html>
